@@ -8,7 +8,6 @@ export default function Game() {
   const winningGame = initGame();
   const [timer, setTimer] = useState(0);
   const [startTime, setStartTime] = useState(null);
-  // const [hasStarted, setHasStarted] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   const [tiles, setTiles] = useState(scramble(winningGame, scrambleCount));
 
