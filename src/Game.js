@@ -7,30 +7,31 @@ export default function Game() {
   const scrambleCount = 10000;
   const winningGame = initGame();
   const [timer, setTimer] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  // const [hasStarted, setHasStarted] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   const [tiles, setTiles] = useState(scramble(winningGame, scrambleCount));
 
   useEffect(() => {
     let interval;
-    if (hasStarted && !hasWon) {
+    if (startTime && !hasWon) {
       interval = setInterval(() => {
-        setTimer((prev) => prev + 1);
-      }, 100);
+        setTimer(Math.floor((Date.now() - startTime)/1000));
+      }, 200);
     }
     return () => clearInterval(interval);
-  }, [hasStarted, hasWon, timer]);
+  }, [startTime, hasWon, timer]);
 
   function restartGame() {
     setHasWon(false);
-    setHasStarted(false);
+    setStartTime(null);
     setTimer(0);
     setTiles(scramble(winningGame, scrambleCount));
   }
 
   function handleClick(index) {
-    if (!hasStarted) {
-      setHasStarted(true);
+    if (!startTime) {
+      setStartTime(new Date());
     }
     setTiles((prevTiles) => {
       const newBoard = moveTiles(prevTiles, index);
@@ -64,7 +65,7 @@ export default function Game() {
 
   return (
     <div className="main-content">
-      <Timer timer={timer} />
+      <Timer timer={timer} hasWon={hasWon} started={startTime ? true : false} />
       <div className="board-flex">
         <div className="game-board">{hasWon ? playAgain : tileElements}</div>
       </div>

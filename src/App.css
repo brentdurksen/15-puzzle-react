@@ -39,7 +39,12 @@ body {
   border: 10px solid black;
   font-size: 2em;
 }
-
+.inactive {
+  color: grey;
+}
+.won {
+  color: lightgreen;
+}
 
 .game-board {
   display: grid;
