@@ -2,7 +2,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  touch-action: none;
 }
+
 .game-header {
   padding: 30px;
   background-color: tomato;
